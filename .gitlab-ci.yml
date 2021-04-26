@@ -5,15 +5,10 @@ before_script:
   - apk add openssh sshpass lftp
 
 deploy_pages: 
-stage: deploy 
-script: 
-  - ls -al 
-  - mkdir .public 
-  - cp -r * .public 
-  - echo "pwd" | sshpass -p $FTP_PASSWORD sftp -o StrictHostKeyChecking=no bitrix@91.232.135.86 
-  - lftp -e "mirror -R .public/ /home/bitrix/www/bitrix24/pet-todo" -u bitrix,$FTP_PASSWORD sftp://91.232.135.86 
-artifacts: 
-paths: 
-  - .public 
-only: 
-  - master
+  stage: deploy 
+  script: 
+    - ls -al 
+    - mkdir .public 
+    - cp -r * .public 
+    - echo "pwd" | sshpass -p $FTP_PASSWORD sftp -o StrictHostKeyChecking=no bitrix@91.232.135.86 
+    - lftp -e "mirror -R .public/ /home/bitrix/www/bitrix24/pet-todo" -u bitrix,$FTP_PASSWORD sftp://91.232.135.86 
