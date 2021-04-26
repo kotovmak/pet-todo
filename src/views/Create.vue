@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <div class="col s6 offset-s3">
-        <h1>Create task</h1>
+        <h1>Create task new</h1>
 
         <form @submit.prevent="submitHandler">
           <div class="input-field">
