@@ -1,12 +1,24 @@
-image: alpine
+build site:
+  image: node:latest
+  stage: build
+  script:
+    - npm install --progress=false
+    - npm run build
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - dist
+  only:
+    - master
 
-before_script: 
-  - apk update 
-  - apk add openssh sshpass lftp
-
-deploy_pages: 
-  stage: deploy 
-  script: 
+deploy:
+  image: alpine
+  stage: deploy
+  script:
+    - apk update 
+    - apk add openssh sshpass lftp
     - ls -al 
     - echo "pwd" | sshpass -p $FTP_PASSWORD sftp -o StrictHostKeyChecking=no bitrix@91.232.135.86 
-    - lftp -e "mirror --delete -R public/ /home/bitrix/www/bitrix24/pet-todo" -u bitrix,$FTP_PASSWORD sftp://91.232.135.86 
+    - lftp -e "mirror --delete -R dist/ /home/bitrix/www/bitrix24/pet-todo" -u bitrix,$FTP_PASSWORD sftp://91.232.135.86 
+  only:
+    - master
