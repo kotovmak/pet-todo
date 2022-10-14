@@ -18,11 +18,10 @@ npm run build
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-<div hidden>
-```
+```plantuml
 @startuml firstDiagram
 Bob -> Alice : Привет!
 @enduml
 ```
-</div>
+
 ![](firstDiagram.svg)
